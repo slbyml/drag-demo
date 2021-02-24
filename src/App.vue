@@ -1,25 +1,26 @@
 <template>
-  <!-- <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" /> -->
-  <tz-list></tz-list>
+  <tz-list :component-config="config" />
+  <tz-content />
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, getCurrentInstance } from 'vue'
 import tzList from './components/list/index.vue'
+import tzContent from './components/content/index.vue'
+import {getCofig} from './config'
 
 export default defineComponent({
   name: 'App',
   components: {
     tzList,
+    tzContent
   },
   setup() {
-    let num = ref<number>(0)
-    const add = () => {
-      return ++num.value
-    }
+    // 获取所有全局注册的组件
+    const internalInstance = getCurrentInstance()
+    const config = getCofig(internalInstance && internalInstance.appContext.components)
     return {
-      num,
-      add
+      config
     }
   }
 })
@@ -30,6 +31,8 @@ body,html{
   height: 100%;
   padding: 0;
   margin: 0;
+  -moz-user-select: none;
+  background-color: #f9f9f9;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -38,6 +41,5 @@ body,html{
   color: #2c3e50;
   display: flex;
   height: 100%;
-  flex-direction: column;
 }
 </style>

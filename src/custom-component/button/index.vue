@@ -8,7 +8,7 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'tz-button',
+  name: 'tzButton',
   setup () {
     
 
@@ -19,6 +19,14 @@ export default defineComponent({
 
 <style scoped>
 .btn{
-
+  width: 100px;
+  height: 30px;
+  line-height: 30px;
+  border: none;
+  background-color: bisque;
+  cursor: pointer;
+}
+.btn:focus {
+  outline: none;
 }
 </style>

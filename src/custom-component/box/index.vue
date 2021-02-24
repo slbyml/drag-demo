@@ -6,10 +6,8 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'tz-box',
+  name: 'tzBox',
   setup () {
-    
-
     return {}
   }
 })
