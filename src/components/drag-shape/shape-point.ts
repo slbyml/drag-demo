@@ -1,3 +1,6 @@
+import { computed } from 'vue'
+import {useStore} from 'vuex'
+
 export enum selectTs {
   lt = 'lt',
   rt = 'rt',
@@ -23,7 +26,51 @@ export interface styleType extends objType{
   top: string,
   [propName: string]: any
 }
-
+// 圆点宽度的一半
+const pointHalf = 8 / 2
+// 圆点的定位信息
+export const pointStyle = {
+  lt:{
+    left:`-${pointHalf}px`,
+    top: `-${pointHalf}px`,
+    cursor: 'nw-resize'
+  },
+  rt:{
+    right: `-${pointHalf}px`,
+    top: `-${pointHalf}px`,
+    cursor: 'ne-resize'
+  },
+  lb: {
+    left:`-${pointHalf}px`,
+    bottom: `-${pointHalf}px`,
+    cursor: 'sw-resize'
+  },
+  rb: {
+    right: `-${pointHalf}px`,
+    bottom: `-${pointHalf}px`,
+    cursor: 'se-resize'
+  },
+  l: {
+    left: `-${pointHalf}px`,
+    top: "calc(50% - 4px)",
+    cursor: 'w-resize'
+  },
+  t: {
+    left: "calc(50% - 4px)",
+    top: `-${pointHalf}px`,
+    cursor: 'n-resize'
+  },
+  r: {
+    right: `-${pointHalf}px`,
+    top: "calc(50% - 4px)",
+    cursor: 'e-resize'
+  },
+  b: {
+    left: "calc(50% - 4px)",
+    bottom: `-${pointHalf}px`,
+    cursor: 's-resize'
+  }
+}
 // 防止组件缩小到宽高为0
 const minNum = 2
 
@@ -152,7 +199,6 @@ const pointMap = {
       ...style,
       height: height + 'px'
     }
-    
   }
 }
 
@@ -166,4 +212,42 @@ const pointMap = {
  */
 export function getMoveStyle(item:selectTs, startPosition:positionTs,curPostion:positionTs, style:styleType, canvasConfig: objType):any {
   return pointMap[item](startPosition, curPostion, style, canvasConfig)
+}
+
+/**
+ * 八个点的拖拽缩放事件
+ * @param index 当前选中组件的下标
+ */
+export function pointEvent() {
+  const store = useStore()
+  return (item: selectTs, event: MouseEvent) => {
+    const canvasConfig = computed(() => store.getters.getCanvas)
+    const shapeConfig:any = computed(() => store.getters.getCurrentComponents)
+    let startPosition:positionTs = {
+      x: event.clientX,
+      y: event.clientY
+    }
+    const startStyle = {
+      ...shapeConfig.value.style
+    }
+    // 鼠标按下并移动
+    const move = (event:MouseEvent) => {
+      
+      event.stopPropagation()
+      const curPostion:positionTs = {
+        x: event.clientX,
+        y: event.clientY
+      }
+      const newStyle = getMoveStyle(item, startPosition, curPostion, startStyle, canvasConfig.value)
+      store.commit('updateCurrentStyle', newStyle)
+    }
+    // 鼠标抬起
+    const end = ():void => {
+      document.removeEventListener('mousemove', move)
+      document.removeEventListener('mouseup', end)
+    }
+  
+    document.addEventListener('mousemove', move)
+    document.addEventListener('mouseup', end)
+  }
 }

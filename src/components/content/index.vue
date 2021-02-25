@@ -4,13 +4,13 @@
       <component-box v-for="(item, key) in components" :key="item.id" :components-config="item" :index='key' @on-component="onComponent">
         <component :is="item.component" v-bind="item.props" />
       </component-box>
-      <drag-shape :current-index="activeComponentindex" v-if="activeComponent.show" @click.stop="onComponent('shape',$event)"/>
+      <drag-shape v-if="activeComponent.show" @click.stop="onComponent('shape',$event)"/>
     </div>
     </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, Ref, ref } from 'vue'
+import { computed, defineComponent, reactive} from 'vue'
 import {useStore} from 'vuex'
 import { generateID } from '../../utils'
 import componentBox from '../component-box/index.vue'
@@ -47,7 +47,6 @@ export default defineComponent({
       show: false
     })
     // 点击画布是判断是否需要显示拖拽框
-    let activeComponentindex:Ref = ref(-1)
     const onComponent = (index:number | string) => {      
       if (index === 'shape') {
         return
@@ -55,11 +54,9 @@ export default defineComponent({
       if (index === 'content' || !components) {
         // 取消选择
         activeComponent.show = false
-        activeComponentindex.value = -1
         store.commit('addCurrentComponents',null)        
         return
       }
-      activeComponentindex.value = index
       store.commit('addCurrentComponents',components.value[index])
       activeComponent.show = true               
     }
@@ -70,8 +67,7 @@ export default defineComponent({
       handleDrop,
       handleDragOver,
       onComponent,
-      activeComponent,
-      activeComponentindex
+      activeComponent
     }
   }
 })

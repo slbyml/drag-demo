@@ -39,6 +39,15 @@ const store = createStore({
         ...style,
       }      
     },
+    // 更新当前选中组件的样式
+    updateCurrentStyle(state:state, style) {
+      if (!state.currentComponents) return;
+      const defaultStyle = state.currentComponents.style
+      state.currentComponents.style = {
+        ...defaultStyle,
+        ...style
+      }
+    },
     addCurrentComponents(state:state, data) {
       state.currentComponents = data
     }
@@ -46,6 +55,9 @@ const store = createStore({
   getters: {
     getComponents( state:state) {
       return state.components
+    },
+    getCurrentComponents(state:state) {
+      return state.currentComponents
     },
     getCanvas(state: state) {
       return state.canvasConfig
