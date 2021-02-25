@@ -1,5 +1,6 @@
 import { computed } from 'vue'
 import {useStore} from 'vuex'
+import {configItemType} from '../../config'
 
 export enum selectTs {
   lt = 'lt',
@@ -75,7 +76,7 @@ export const pointStyle = {
 const minNum = 2
 
 const pointMap = {
-  lt(startPosition:positionTs, curPostion:positionTs, style:styleType, canvasConfig: objType) {
+  lt(startPosition:positionTs, curPostion:positionTs, style:styleType, canvasConfig: objType):styleType {
     const moveY = startPosition.y - curPostion.y
     const moveX = startPosition.x - curPostion.x  
     const maxWidth = parseInt(style.left) + parseInt(style.width)
@@ -84,6 +85,8 @@ const pointMap = {
     let top = parseInt(style.top) - moveY
     let width = parseInt(style.width) + moveX
     let height = parseInt(style.height) + moveY
+
+    // 拖拽时禁止拖拽到画布外面
     width = width < minNum ? minNum : (width > maxWidth ? maxWidth : width)
     height = height < minNum ? minNum : (height > maxHeight ? maxHeight : height)
     left = left < 0 ? 0 : (left > maxWidth - minNum ? maxWidth - minNum : left)
@@ -98,14 +101,16 @@ const pointMap = {
     }
     
   },
-  rt(startPosition:positionTs, curPostion:positionTs, style:styleType, canvasConfig: objType) {
+  rt(startPosition:positionTs, curPostion:positionTs, style:styleType, canvasConfig: objType):styleType {
     const moveY = startPosition.y - curPostion.y
     const moveX = curPostion.x - startPosition.x
     const maxWidth = parseInt(canvasConfig.width) - parseInt(style.left)
     const maxHeight = parseInt(style.top) + parseInt(style.height)
     let top = parseInt(style.top) - moveY
     let width = parseInt(style.width) + moveX
-    let height = parseInt(style.height) + moveY    
+    let height = parseInt(style.height) + moveY  
+
+    // 拖拽时禁止拖拽到画布外面  
     width = width < minNum ? minNum : (width > maxWidth ? maxWidth : width)
     height = height < minNum ? minNum : (height > maxHeight ? maxHeight : height)
     top = top < 0 ? 0 : (top > maxHeight - minNum ? maxHeight -minNum : top)
@@ -117,7 +122,7 @@ const pointMap = {
       width: width + 'px',
     }
   },
-  lb(startPosition:positionTs, curPostion:positionTs, style:styleType, canvasConfig: objType) {
+  lb(startPosition:positionTs, curPostion:positionTs, style:styleType, canvasConfig: objType):styleType {
     const moveY = curPostion.y - startPosition.y 
     const moveX = startPosition.x - curPostion.x
     const maxWidth = parseInt(style.left) + parseInt(style.width)
@@ -125,6 +130,8 @@ const pointMap = {
     let left = parseInt(style.left) - moveX
     let width = parseInt(style.width) + moveX
     let height = parseInt(style.height) + moveY    
+
+    // 拖拽时禁止拖拽到画布外面
     width = width < minNum ? minNum : (width > maxWidth ? maxWidth : width)
     height = height < minNum ? minNum : (height > maxHeight ? maxHeight : height)
     left = left < 0 ? 0 : (left > maxWidth - minNum ? maxWidth -minNum : left)
@@ -137,13 +144,15 @@ const pointMap = {
     }
     
   },
-  rb(startPosition:positionTs, curPostion:positionTs, style:styleType, canvasConfig: objType) {
+  rb(startPosition:positionTs, curPostion:positionTs, style:styleType, canvasConfig: objType):styleType {
     const moveY = curPostion.y - startPosition.y 
     const moveX = curPostion.x - startPosition.x
     const maxWidth = parseInt(canvasConfig.width) - parseInt(style.left)
     const maxHeight = parseInt(canvasConfig.height) - parseInt(style.top)
     let width = parseInt(style.width) + moveX
     let height = parseInt(style.height) + moveY    
+
+    // 拖拽时禁止拖拽到画布外面
     width = width < minNum ? minNum : (width > maxWidth ? maxWidth : width)
     height = height < minNum ? minNum : (height > maxHeight ? maxHeight : height)
 
@@ -154,11 +163,13 @@ const pointMap = {
     }
     
   },
-  l(startPosition:positionTs, curPostion:positionTs, style:styleType, canvasConfig: objType) {
+  l(startPosition:positionTs, curPostion:positionTs, style:styleType, canvasConfig: objType):styleType {
     const moveX = startPosition.x - curPostion.x  
     const maxWidth = parseInt(style.left) + parseInt(style.width)
     let left = parseInt(style.left) - moveX
     let width = parseInt(style.width) + moveX
+
+    // 拖拽时禁止拖拽到画布外面
     width = width < minNum ? minNum : (width > maxWidth ? maxWidth : width)
     left = left < 0 ? 0 : (left > maxWidth - minNum ? maxWidth - minNum : left)
     return {
@@ -167,11 +178,13 @@ const pointMap = {
       width: width + 'px'
     }
   },
-  t(startPosition:positionTs, curPostion:positionTs, style:styleType, canvasConfig: objType) {
+  t(startPosition:positionTs, curPostion:positionTs, style:styleType, canvasConfig: objType):styleType {
     const moveY = startPosition.y - curPostion.y  
     const maxHeight = parseInt(style.top) + parseInt(style.height)
     let top = parseInt(style.top) - moveY
     let height = parseInt(style.height) + moveY
+
+    // 拖拽时禁止拖拽到画布外面
     height = height < minNum ? minNum : (height > maxHeight ? maxHeight : height)
     top = top < 0 ? 0 : (top > maxHeight - minNum ? maxHeight -minNum : top)
     return {
@@ -180,7 +193,7 @@ const pointMap = {
       height:height + 'px'
     }
   },
-  r(startPosition:positionTs, curPostion:positionTs, style:styleType, canvasConfig: objType) {
+  r(startPosition:positionTs, curPostion:positionTs, style:styleType, canvasConfig: objType):styleType {
     const moveX = curPostion.x - startPosition.x
     let width = parseInt(style.width) + moveX
     const maxWidth = parseInt(canvasConfig.width) - parseInt(style.left)
@@ -190,7 +203,7 @@ const pointMap = {
       width: width + 'px'
     }
   },
-  b(startPosition:positionTs, curPostion:positionTs, style:styleType, canvasConfig: objType) {
+  b(startPosition:positionTs, curPostion:positionTs, style:styleType, canvasConfig: objType):styleType {
     const moveY = curPostion.y - startPosition.y
     let height = parseInt(style.height) + moveY
     const maxHeight = parseInt(canvasConfig.height) - parseInt(style.top)
@@ -220,25 +233,24 @@ export function getMoveStyle(item:selectTs, startPosition:positionTs,curPostion:
  */
 export function pointEvent() {
   const store = useStore()
-  return (item: selectTs, event: MouseEvent) => {
+  return (item: selectTs, event: MouseEvent):void => {
     const canvasConfig = computed(() => store.getters.getCanvas)
-    const shapeConfig:any = computed(() => store.getters.getCurrentComponents)
-    let startPosition:positionTs = {
+    const currentComponents:configItemType = computed(() => store.getters.getCurrentComponents).value
+    const startPosition:positionTs = {
       x: event.clientX,
       y: event.clientY
     }
     const startStyle = {
-      ...shapeConfig.value.style
+      ...currentComponents.style
     }
     // 鼠标按下并移动
     const move = (event:MouseEvent) => {
-      
       event.stopPropagation()
       const curPostion:positionTs = {
         x: event.clientX,
         y: event.clientY
       }
-      const newStyle = getMoveStyle(item, startPosition, curPostion, startStyle, canvasConfig.value)
+      const newStyle = getMoveStyle(item, startPosition, curPostion, startStyle as styleType, canvasConfig.value)
       store.commit('updateCurrentStyle', newStyle)
     }
     // 鼠标抬起

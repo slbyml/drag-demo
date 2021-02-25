@@ -40,7 +40,7 @@ const store = createStore({
       }      
     },
     // 更新当前选中组件的样式
-    updateCurrentStyle(state:state, style) {
+    updateCurrentStyle(state:state, style) {      
       if (!state.currentComponents) return;
       const defaultStyle = state.currentComponents.style
       state.currentComponents.style = {
