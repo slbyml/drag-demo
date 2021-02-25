@@ -1,33 +1,40 @@
 <template>
-  <div class="content" @drop="handleDrop" @dragover="handleDragOver">
-    <component-box v-for="(item, key) in components" :key="item.id" :componentsConfig="item" :index='key'>
-      <component :is="item.component" v-bind="item.props"></component>
-    </component-box>
-  </div>
+  <div class="content">
+    <div class="canvas" @drop="handleDrop" @dragover="handleDragOver" @click.stop="onComponent('content')" :style="canvasStyle">
+      <component-box v-for="(item, key) in components" :key="item.id" :components-config="item" :index='key' @on-component="onComponent">
+        <component :is="item.component" v-bind="item.props" />
+      </component-box>
+      <drag-shape :current-index="activeComponentindex" v-if="activeComponent.show" @click.stop="onComponent('shape',$event)"/>
+    </div>
+    </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, nextTick } from 'vue'
+import { computed, defineComponent, reactive, Ref, ref } from 'vue'
 import {useStore} from 'vuex'
 import { generateID } from '../../utils'
 import componentBox from '../component-box/index.vue'
+import dragShape from '../drag-shape/index.vue'
 
 export default defineComponent({
   name: 'tzContent',
   components: {
     componentBox,
+    dragShape
   },
   setup () {
     const store = useStore()
+    const components = computed(() => store.getters.getComponents)
 
     // 拖拽停止
-    const handleDrop = (event:any) => {
+    const handleDrop = (event:any):void => {
       event.preventDefault()
       const obj = JSON.parse(event.dataTransfer.getData('componentType'))
       obj.style.top = event.offsetY - obj.style.top + 'px'
       obj.style.left = event.offsetX - obj.style.left + 'px'
       obj.id=generateID()
       
+      // 存储新增加的工作区内容
       store.commit('addComponents', obj)
 
     }
@@ -35,10 +42,36 @@ export default defineComponent({
       event.preventDefault()
     }
     
+    // 点击组件的定位样式
+    let activeComponent:any = reactive({
+      show: false
+    })
+    // 点击画布是判断是否需要显示拖拽框
+    let activeComponentindex:Ref = ref(-1)
+    const onComponent = (index:number | string) => {      
+      if (index === 'shape') {
+        return
+      }
+      if (index === 'content' || !components) {
+        // 取消选择
+        activeComponent.show = false
+        activeComponentindex.value = -1
+        store.commit('addCurrentComponents',null)        
+        return
+      }
+      activeComponentindex.value = index
+      store.commit('addCurrentComponents',components.value[index])
+      activeComponent.show = true               
+    }
+
     return {
-      components:computed(() => store.getters.getComponents) || [],
+      canvasStyle:computed(() => store.getters.getCanvas),
+      components,
       handleDrop,
       handleDragOver,
+      onComponent,
+      activeComponent,
+      activeComponentindex
     }
   }
 })
@@ -46,9 +79,13 @@ export default defineComponent({
 
 <style scoped>
   .content{
-    background-color: #fff;
-    margin: 25px;
+    padding: 25px;
     flex: 1;
+    box-sizing: border-box;
+    height: 100%;
+    overflow-y: auto;
+  }
+  .canvas{
     overflow: hidden;
     position: relative;
   }

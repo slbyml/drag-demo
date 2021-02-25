@@ -1,5 +1,5 @@
 <template>
-  <div class="item" :style="componentsConfig.style" ref="component">
+  <div class="item" :style="componentsConfig.style" ref="component" @click="activeComponent">
     <slot></slot>
   </div>
 </template>
@@ -28,7 +28,7 @@ export default defineComponent({
     const store = useStore()
     onMounted(() => {   
       const dom:any = component.value;
-      const style:any = (dom as HTMLElement).getBoundingClientRect()
+      const style:any = (dom as HTMLElement).getBoundingClientRect()      
       store.commit('updateStyle', {
         index: props.index, 
         style: {
@@ -37,8 +37,15 @@ export default defineComponent({
         }
       })
     })
+
+    const activeComponent = (e:Event):void => {
+      context.emit('onComponent', props.index)
+      e.stopPropagation()
+    }
+
     return {
-      component
+      component,
+      activeComponent
     }
   }
 })

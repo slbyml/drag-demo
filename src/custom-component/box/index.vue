@@ -15,8 +15,9 @@ export default defineComponent({
 
 <style scoped>
 .box{
-  width: 100px;
-  height: 100px;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
   background-color: #ccc;
 }
 </style>

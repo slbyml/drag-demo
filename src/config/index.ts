@@ -17,7 +17,11 @@ export interface configItemType {
 // 列举用到的组件
 const componentsMap:objType = {
   tzBox: {
-    title: '矩形'
+    title: '矩形',
+    style: {
+      width:"100px",
+      height:"100px"
+    }
   },
   tzButton: {
     title: '按钮'
@@ -59,7 +63,9 @@ export const getCofig = (components:any):configItemType[] => {
         ...props(component),
         ...(s.props?s.props : {})
       },
-      style:{}
+      style: {
+        ...(s.style?s.style : {})
+      }
     })
   }
   
