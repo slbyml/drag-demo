@@ -28,7 +28,7 @@ export default defineComponent({
     const store = useStore()
     onMounted(() => {   
       const dom:any = component.value;
-      const style:any = (dom as HTMLElement).getBoundingClientRect()      
+      const style:any = (dom as HTMLElement).getBoundingClientRect()
       store.commit('updateStyle', {
         index: props.index, 
         style: {

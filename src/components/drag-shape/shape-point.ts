@@ -235,13 +235,13 @@ export function pointEvent() {
   const store = useStore()
   return (item: selectTs, event: MouseEvent):void => {
     const canvasConfig = computed(() => store.getters.getCanvas)
-    const currentComponents:configItemType = computed(() => store.getters.getCurrentComponents).value
+    const currentComponent:configItemType = computed(() => store.getters.getCurrentComponent).value
     const startPosition:positionTs = {
       x: event.clientX,
       y: event.clientY
     }
     const startStyle = {
-      ...currentComponents.style
+      ...currentComponent.style
     }
     // 鼠标按下并移动
     const move = (event:MouseEvent) => {
@@ -254,7 +254,9 @@ export function pointEvent() {
       store.commit('updateCurrentStyle', newStyle)
     }
     // 鼠标抬起
-    const end = ():void => {
+    const end = (event:MouseEvent):void => {
+      event.stopPropagation()
+      event.preventDefault()
       document.removeEventListener('mousemove', move)
       document.removeEventListener('mouseup', end)
     }

@@ -4,7 +4,7 @@ import {configItemType} from '../config'
 export interface state {
   canvasConfig:any,
   components: configItemType[],
-  currentComponents:configItemType | null,
+  currentComponent:configItemType | null,
   [propName: string]: any
 }
 
@@ -18,7 +18,7 @@ const store = createStore({
         backgroundColor: "#fff"
       },
       components: [], // 画布上已经存在的组件
-      currentComponents: null, // 当前正在操作的组件
+      currentComponent: null, // 当前正在操作的组件
     }
   },
   mutations: {
@@ -41,23 +41,23 @@ const store = createStore({
     },
     // 更新当前选中组件的样式
     updateCurrentStyle(state:state, style) {      
-      if (!state.currentComponents) return;
-      const defaultStyle = state.currentComponents.style
-      state.currentComponents.style = {
+      if (!state.currentComponent) return;
+      const defaultStyle = state.currentComponent.style
+      state.currentComponent.style = {
         ...defaultStyle,
         ...style
       }
     },
-    addCurrentComponents(state:state, data) {
-      state.currentComponents = data
+    addCurrentComponent(state:state, data) {
+      state.currentComponent = data
     }
   },
   getters: {
     getComponents( state:state) {
       return state.components
     },
-    getCurrentComponents(state:state) {
-      return state.currentComponents
+    getCurrentComponent(state:state) {
+      return state.currentComponent
     },
     getCanvas(state: state) {
       return state.canvasConfig

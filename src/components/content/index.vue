@@ -4,7 +4,7 @@
       <component-box v-for="(item, key) in components" :key="item.id" :components-config="item" :index='key' @on-component="onComponent">
         <component :is="item.component" v-bind="item.props" />
       </component-box>
-      <drag-shape v-if="activeComponent.show" @click.stop="onComponent('shape',$event)"/>
+      <drag-shape v-if="activeComponent.show"/>
     </div>
     </div>
 </template>
@@ -47,17 +47,14 @@ export default defineComponent({
       show: false
     })
     // 点击画布是判断是否需要显示拖拽框
-    const onComponent = (index:number | string) => {      
-      if (index === 'shape') {
-        return
-      }
+    const onComponent = (index:number | string) => {
       if (index === 'content' || !components) {
         // 取消选择
         activeComponent.show = false
-        store.commit('addCurrentComponents',null)        
+        store.commit('addCurrentComponent',null)        
         return
       }
-      store.commit('addCurrentComponents',components.value[index])
+      store.commit('addCurrentComponent',components.value[index])
       activeComponent.show = true               
     }
 
