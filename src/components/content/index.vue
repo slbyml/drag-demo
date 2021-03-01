@@ -6,7 +6,7 @@
       </component-box>
       <drag-shape v-if="activeComponent.show"/>
     </div>
-    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -55,7 +55,7 @@ export default defineComponent({
         return
       }
       store.commit('addCurrentComponent',components.value[index])
-      activeComponent.show = true               
+      activeComponent.show = true
     }
 
     return {
@@ -81,5 +81,6 @@ export default defineComponent({
   .canvas{
     overflow: hidden;
     position: relative;
+    margin: 0 auto;
   }
 </style>

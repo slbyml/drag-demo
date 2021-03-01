@@ -11,7 +11,7 @@ import { defineComponent, Prop } from 'vue'
 import {configItemType} from '../../config'
 
 export default defineComponent({
-  name: 'tz-list',
+  name: 'tz-left',
   props: {
     componentConfig: {
       type: Array,

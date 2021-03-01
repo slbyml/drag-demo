@@ -1,18 +1,18 @@
 <template>
-  <tz-list :component-config="config" />
+  <tz-left :component-config="config" />
   <tz-content />
 </template>
 
 <script lang="ts">
 import { defineComponent, getCurrentInstance } from 'vue'
-import tzList from './components/list/index.vue'
+import tzLeft from './components/list/index.vue'
 import tzContent from './components/content/index.vue'
 import {getCofig} from './config'
 
 export default defineComponent({
   name: 'App',
   components: {
-    tzList,
+    tzLeft,
     tzContent
   },
   setup() {

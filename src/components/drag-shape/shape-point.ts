@@ -53,21 +53,25 @@ export const pointStyle = {
   },
   l: {
     left: `-${pointHalf}px`,
-    top: "calc(50% - 4px)",
+    top: "50%",
+    transform: 'translateY(-50%)',
     cursor: 'w-resize'
   },
   t: {
-    left: "calc(50% - 4px)",
+    left: "50%",
+    transform: 'translateX(-50%)',
     top: `-${pointHalf}px`,
     cursor: 'n-resize'
   },
   r: {
     right: `-${pointHalf}px`,
-    top: "calc(50% - 4px)",
+    top: "50%",
+    transform: 'translateY(-50%)',
     cursor: 'e-resize'
   },
   b: {
-    left: "calc(50% - 4px)",
+    left: "50%",
+    transform: 'translateX(-50%)',
     bottom: `-${pointHalf}px`,
     cursor: 's-resize'
   }

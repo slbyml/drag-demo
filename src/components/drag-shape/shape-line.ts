@@ -43,10 +43,10 @@ export const lineStyle = (store:any) => {
   const allPosition:positionTs[] = []
   // 存储所有组件的定位
   const targetPostions:allPositionTs = {
-    left: [0],
-    top: [0]
+    left: [0, parseInt(store.getters.getCanvas.width)],
+    top: [0, parseInt(store.getters.getCanvas.height)]
   }
-
+  
   componentsConfig.forEach( (item:configItemType)  => {
     if (item !== currentComponent) {
       allPosition.push(getPosition(item))
