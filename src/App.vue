@@ -1,11 +1,13 @@
 <template>
   <tz-left :component-config="config" />
   <tz-content />
+  <tz-right />
 </template>
 
 <script lang="ts">
 import { defineComponent, getCurrentInstance } from 'vue'
-import tzLeft from './components/list/index.vue'
+import tzLeft from './components/left/index.vue'
+import tzRight from './components/right/index.vue'
 import tzContent from './components/content/index.vue'
 import {getCofig} from './config'
 
@@ -13,7 +15,8 @@ export default defineComponent({
   name: 'App',
   components: {
     tzLeft,
-    tzContent
+    tzContent,
+    tzRight
   },
   setup() {
     // 获取所有全局注册的组件

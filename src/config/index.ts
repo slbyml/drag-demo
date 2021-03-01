@@ -32,6 +32,17 @@ const componentsMap:objType = {
       text: '按钮',
       block: true,
     }
+  },
+  VanNavBar: {
+    title: 'nav导航栏',
+    style: {
+      width: '100%'
+    },
+    props: {
+      title: '标题',
+      leftText: '返回',
+      zIndex: 1
+    }
   }
 }
 export const getCofig = (components:any):configItemType[] => {

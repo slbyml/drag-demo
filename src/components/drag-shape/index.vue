@@ -74,6 +74,7 @@ export default defineComponent({
   outline: 1px dashed #70c0ff;
   user-select: none;
   cursor: move;
+  z-index: 999;
   /* transition:all .2s ease-out	; */
 }
 .dragWrap > div{
