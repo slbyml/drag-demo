@@ -1,3 +1,4 @@
+// 公共参数
 export const configKeyMap = {
   left: {
     value: 'X 坐标',
@@ -59,10 +60,16 @@ export const configKeyMap = {
     type: 'number'
   }
 }
-
-//
-export const componentConfigMap = {
+export interface objType {
+  [propName: string]: any
+}
+// 为单独组件设置的参数
+export const componentConfigMap:objType = {
   'van-button':{
-    type: ['primary', 'success', 'warning', 'danger']
+    type: {
+      value: '类型',
+      type: 'select',
+      options: ['primary', 'success', 'warning', 'danger']
+    }
   }
 }

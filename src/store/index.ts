@@ -13,9 +13,12 @@ const store = createStore({
   state () {
     return {
       canvasConfig: { // 画布信息
-        width: "414px",
-        height: "736px",
-        backgroundColor: "#fff"
+        style: {
+          width: "414px",
+          height: "736px",
+          backgroundColor: "#fff"
+        },
+        props: {}
       },
       components: [], // 画布上已经存在的组件
       currentComponent: null, // 当前正在操作的组件

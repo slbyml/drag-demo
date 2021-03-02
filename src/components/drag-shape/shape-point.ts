@@ -254,7 +254,7 @@ export function pointEvent() {
         x: event.clientX,
         y: event.clientY
       }
-      const newStyle = getMoveStyle(item, startPosition, curPostion, startStyle as styleType, canvasConfig.value)
+      const newStyle = getMoveStyle(item, startPosition, curPostion, startStyle as styleType, canvasConfig.value.style)
       store.commit('updateCurrentStyle', newStyle)
     }
     // 鼠标抬起

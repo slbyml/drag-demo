@@ -59,7 +59,7 @@ export default defineComponent({
     }
 
     return {
-      canvasStyle:computed(() => store.getters.getCanvas),
+      canvasStyle:computed(() => store.getters.getCanvas.style),
       components,
       handleDrop,
       handleDragOver,

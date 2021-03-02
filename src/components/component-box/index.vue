@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, Prop } from 'vue'
+import { defineComponent, onMounted, ref, Prop, computed } from 'vue'
 import {useStore} from 'vuex'
 
 export default defineComponent({
@@ -29,11 +29,14 @@ export default defineComponent({
     onMounted(() => {   
       const dom:any = component.value;
       const style:any = (dom as HTMLElement).getBoundingClientRect()
+      const canvasWidth = computed(() => {store.getters.getCanvas.style.width})
+      const height = style.height ? style.height + 'px' : '50px'
+      const width = style.width ? style.width + 'px' : canvasWidth
       store.commit('updateStyle', {
         index: props.index, 
         style: {
-          height: style.height + 'px',
-          width: style.width + 'px'
+          height,
+          width
         }
       })
     })
