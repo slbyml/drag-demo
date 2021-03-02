@@ -58,6 +58,7 @@ const store = createStore({
         const item = state.components[index];
         if (item === state.currentComponent) {
           state.components.splice(index, 1)
+          store.commit('addCurrentComponent', null)
           return void(0)
         }
       }

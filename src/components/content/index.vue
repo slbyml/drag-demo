@@ -4,13 +4,13 @@
       <component-box v-for="(item, key) in components" :key="item.id" :components-config="item" :index='key' @on-component="onComponent">
         <component :is="item.component" v-bind="item.props" />
       </component-box>
-      <drag-shape v-if="activeComponent.show"/>
+      <drag-shape v-if="currentComponent"/>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive} from 'vue'
+import { computed, defineComponent} from 'vue'
 import {useStore} from 'vuex'
 import { generateID } from '../../utils'
 import componentBox from '../component-box/index.vue'
@@ -25,6 +25,7 @@ export default defineComponent({
   setup () {
     const store = useStore()
     const components = computed(() => store.getters.getComponents)
+    const currentComponent = computed(() => store.getters.getCurrentComponent)
 
     // 拖拽停止
     const handleDrop = (event:any):void => {
@@ -42,25 +43,18 @@ export default defineComponent({
       event.preventDefault()
     }
     
-    // 点击组件的定位样式
-    let activeComponent:any = reactive({
-      show: false
-    })
     // 点击画布是判断是否需要显示拖拽框
     const onComponent = (index:number | string) => {
       if (index === 'content' || !components) {
         // 取消选择
-        activeComponent.show = false
         store.commit('addCurrentComponent',null)        
         return
       }
       store.commit('addCurrentComponent',components.value[index])
-      activeComponent.show = true      
     }
-    
+
     // 删除选中的组件
     const deleteComponent = () => {
-      activeComponent.show = false
       store.commit('deleteCurrentComponent')
     }
     return {
@@ -69,8 +63,8 @@ export default defineComponent({
       handleDrop,
       handleDragOver,
       onComponent,
-      activeComponent,
-      deleteComponent
+      deleteComponent,
+      currentComponent
     }
   }
 })
