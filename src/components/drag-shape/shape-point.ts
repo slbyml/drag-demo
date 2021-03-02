@@ -247,6 +247,16 @@ export function pointEvent() {
     const startStyle = {
       ...currentComponent.style
     }
+
+    // 防止在输入框输入百分比时拖拽计算错误
+    if (startStyle.width.endsWith("%")) {
+      startStyle.width = parseInt(canvasConfig.value.style.width) * parseInt(startStyle.width) / 100 + 'px'
+      
+    }
+    if (startStyle.height.endsWith("%")) {
+      startStyle.height = parseInt(canvasConfig.value.style.height) * parseInt(startStyle.height) / 100 + 'px'
+    }
+
     // 鼠标按下并移动
     const move = (event:MouseEvent) => {
       event.stopPropagation()
@@ -255,6 +265,13 @@ export function pointEvent() {
         y: event.clientY
       }
       const newStyle = getMoveStyle(item, startPosition, curPostion, startStyle as styleType, canvasConfig.value.style)
+      if (newStyle.width.endsWith === canvasConfig.value.style.width) {
+        // 当和画布一样宽是设置成100%
+        newStyle.width = '100%'
+      }
+      if (newStyle.height === canvasConfig.value.style.height) {
+        newStyle.height = '100%'
+      }
       store.commit('updateCurrentStyle', newStyle)
     }
     // 鼠标抬起

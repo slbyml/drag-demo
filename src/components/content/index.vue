@@ -43,15 +43,13 @@ export default defineComponent({
       event.preventDefault()
     }
     
-    // 点击画布是判断是否需要显示拖拽框
+    // 点击画布时判断是否需要显示拖拽框
     const onComponent = (index:number | string) => {
       if (index === 'content' || !components) {
         // 取消选择
         store.commit('addCurrentComponent',null)        
         return
-      }
-      console.log(components.value[index]);
-      
+      }      
       store.commit('addCurrentComponent',components.value[index])
     }
 
@@ -79,6 +77,7 @@ export default defineComponent({
   box-sizing: border-box;
   height: 100%;
   overflow-y: auto;
+  background-color: #f9f9f9;
 }
 .canvas{
   overflow: hidden;
