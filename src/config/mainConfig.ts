@@ -12,6 +12,9 @@ export const configKeyMap = {
   height: {
     value: '高'
   },
+  lineHeight: {
+    value: '行高'
+  },
   backgroundColor: {
     value: '背景色',
     type: 'color'
@@ -21,7 +24,8 @@ export const configKeyMap = {
     type: 'color'
   },
   text: {
-    value: '文字'
+    value: '文本',
+    type: 'textarea'
   },
   type: {
     value: '类型',
@@ -70,6 +74,13 @@ export const componentConfigMap:objType = {
       value: '类型',
       type: 'select',
       options: ['primary', 'success', 'warning', 'danger']
+    }
+  },
+  'tzText': {
+    align: {
+      value: '对齐方式',
+      type: 'select',
+      options: ['left', 'right', 'center']
     }
   }
 }

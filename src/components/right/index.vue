@@ -25,7 +25,7 @@
               :value="item">
             </el-option>
           </el-select>
-          <el-input v-model.lazy.trim='currentConfig.props[item]' v-else />
+          <el-input v-model.lazy.trim='currentConfig.props[item]' v-else :type="getConfigMap[item].type || 'text'"/>
         </el-form-item>
       </template>
     </el-form>

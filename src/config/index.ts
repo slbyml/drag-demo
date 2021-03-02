@@ -26,6 +26,9 @@ const componentsMap:objType = {
   tzButton: {
     title: '按钮'
   },
+  tzText: {
+    title: '文本'
+  },
   VanButton: {
     title: 'vant-按钮',
     props: {

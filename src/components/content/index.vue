@@ -50,6 +50,8 @@ export default defineComponent({
         store.commit('addCurrentComponent',null)        
         return
       }
+      console.log(components.value[index]);
+      
       store.commit('addCurrentComponent',components.value[index])
     }
 
