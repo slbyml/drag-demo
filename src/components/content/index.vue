@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <div class="canvas" @drop="handleDrop" @dragover="handleDragOver" @click.stop="onComponent('content')" :style="canvasStyle">
+    <div class="canvas" @drop="handleDrop" @dragover="handleDragOver" @click.stop="onComponent('content')" :style="canvasStyle" tabIndex="0" @keyup.delete="deleteComponent">
       <component-box v-for="(item, key) in components" :key="item.id" :components-config="item" :index='key' @on-component="onComponent">
         <component :is="item.component" v-bind="item.props" />
       </component-box>
@@ -55,32 +55,41 @@ export default defineComponent({
         return
       }
       store.commit('addCurrentComponent',components.value[index])
-      activeComponent.show = true
+      activeComponent.show = true      
     }
-
+    
+    // 删除选中的组件
+    const deleteComponent = () => {
+      activeComponent.show = false
+      store.commit('deleteCurrentComponent')
+    }
     return {
       canvasStyle:computed(() => store.getters.getCanvas.style),
       components,
       handleDrop,
       handleDragOver,
       onComponent,
-      activeComponent
+      activeComponent,
+      deleteComponent
     }
   }
 })
 </script>
 
 <style scoped>
-  .content{
-    padding: 25px;
-    flex: 1;
-    box-sizing: border-box;
-    height: 100%;
-    overflow-y: auto;
-  }
-  .canvas{
-    overflow: hidden;
-    position: relative;
-    margin: 0 auto;
-  }
+.content{
+  padding: 25px;
+  flex: 1;
+  box-sizing: border-box;
+  height: 100%;
+  overflow-y: auto;
+}
+.canvas{
+  overflow: hidden;
+  position: relative;
+  margin: 0 auto;
+}
+.canvas:focus{
+  outline: none;
+}
 </style>

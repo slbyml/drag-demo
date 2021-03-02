@@ -5,7 +5,7 @@
       <template v-for="item in Object.keys(currentConfig.style)">
         <el-form-item v-if="getConfigMap[item]"  :key="item" :label="`${getConfigMap[item].value}:`" >
           <el-color-picker v-model="currentConfig.style[item]" v-if="getConfigMap[item].type === 'color'" />
-          <el-input v-model='currentConfig.style[item]' v-else></el-input>
+          <el-input v-model.lazy.trim='currentConfig.style[item]' v-else></el-input>
         </el-form-item>
       </template>
       <!-- 配置组件的样式 -->
@@ -25,7 +25,7 @@
               :value="item">
             </el-option>
           </el-select>
-          <el-input v-model='currentConfig.props[item]' v-else />
+          <el-input v-model.lazy.trim='currentConfig.props[item]' v-else />
         </el-form-item>
       </template>
     </el-form>

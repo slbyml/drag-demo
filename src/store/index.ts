@@ -51,6 +51,18 @@ const store = createStore({
         ...style
       }
     },
+    // 删除当前组件
+    deleteCurrentComponent(state: state) {
+      if (!state.currentComponent || state.components.length <= 0) return
+      for (let index = 0; index < state.components.length; index++) {
+        const item = state.components[index];
+        if (item === state.currentComponent) {
+          state.components.splice(index, 1)
+          return void(0)
+        }
+      }
+
+    },
     addCurrentComponent(state:state, data) {
       state.currentComponent = data
     }
