@@ -1,14 +1,13 @@
 <template>
   <div class="page">
-    <component-box v-for="(item, key) in components" :key="item.id" :components-config="item" :index='key'>
+    <div v-for="(item, key) in components" :key="item.id" class="item" :style="item.style">
       <component :is="item.component" v-bind="item.props" />
-    </component-box>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
-import {useStore} from 'vuex'
+import { defineComponent, computed, reactive } from 'vue'
 import componentBox from '../../components/component-box/index.vue'
 
 export default defineComponent({
@@ -16,9 +15,17 @@ export default defineComponent({
     componentBox,
   },
   setup () {
-    const store = useStore()
+    const parentMessage:any = reactive([])
+    
+    window.addEventListener('message', function(e) {
+      parentMessage.value = e.data
+    })
+    const components = computed(() => {
+      return parentMessage.value
+      
+    })
     return {
-      components: computed(() => store.getters.getComponents)
+      components,
     }
   }
 })
@@ -30,5 +37,8 @@ export default defineComponent({
   min-height: 100%;
   overflow: hidden;
   position: relative;
+}
+.item {
+  position: absolute;
 }
 </style>

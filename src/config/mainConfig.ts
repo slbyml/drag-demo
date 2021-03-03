@@ -15,6 +15,10 @@ export const configKeyMap = {
   lineHeight: {
     value: '行高'
   },
+  fixed: {
+    value: '固定',
+    type: 'switch'
+  },
   backgroundColor: {
     value: '背景色',
     type: 'color'
