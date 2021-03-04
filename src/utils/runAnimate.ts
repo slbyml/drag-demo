@@ -1,6 +1,7 @@
 import {configItemType} from '../config/index'
 import {animationItemTs} from '../config/animate'
 
+// 为组件添加动画
 export default async function runAnimation(current:configItemType, store: any, el:HTMLDivElement|null) {  
   if (!el) return;
   let preClass = ""
@@ -28,6 +29,7 @@ export default async function runAnimation(current:configItemType, store: any, e
     el?.addEventListener('animationend', removeAnimation)
     el?.addEventListener('animationcancel', removeAnimation)
   })
+  // 可能存在多个动画
   for (const item of current.animates) {
     await play(item)
   }

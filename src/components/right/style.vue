@@ -43,6 +43,7 @@ export default defineComponent({
       return store.getters.getCurrentComponent ? store.getters.getCurrentComponent : store.getters.getCanvas
     })
     
+    // 获取当前组件的配置信息
     const getConfigMap = computed(() => {
       const name = store.getters.getCurrentComponent?.component
       return {

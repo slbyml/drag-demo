@@ -29,6 +29,7 @@ export default defineComponent({
     const store = useStore()
     const currentComponent = computed(() => store.getters.getCurrentComponent)
     onMounted(() => {   
+      // 将新添加组件的宽高放到配置中
       const dom:any = component.value;
       const style:any = (dom as HTMLElement).getBoundingClientRect()
       const canvasWidth = computed(() => {store.getters.getCanvas.style.width})

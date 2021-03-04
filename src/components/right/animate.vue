@@ -59,6 +59,8 @@ export default defineComponent({
     const onSelectDialog = () => {
       dialogVisible.value = true
     }
+
+    // 
     const onAnimation = (event:MouseEvent, opt:animationItemTs,) => {
       if (event.target) {
           (event.target as HTMLElement).classList.add(`animate__${opt.value}`)
@@ -67,15 +69,17 @@ export default defineComponent({
           },3000)
       }
     }
+    // 添加动画
     const onAddAnimation = (opt:animationItemTs) => {
       store.commit('addCurrentAnimation', opt)
       dialogVisible.value=false
     }
-
+    // 运行动画
     const onRunAnimate = () => {
       runAnimation(currentComponent.value, store, document.querySelector('.activeComponent'))
     }
 
+    // 删除动画
     const deleteAnimate = (index:number) => {
       store.commit('delCurrentAnimation', index)
     }
