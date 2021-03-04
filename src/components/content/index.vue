@@ -54,7 +54,7 @@ export default defineComponent({
     }
 
     // 删除选中的组件
-    const deleteComponent = () => {
+    const deleteComponent = () => {      
       store.commit('deleteCurrentComponent')
     }
     return {

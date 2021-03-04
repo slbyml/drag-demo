@@ -1,3 +1,4 @@
+import {animationItemTs} from './animate'
 // 一个简单的对象类型
 export interface objType {
   [propName: string]: any
@@ -9,6 +10,7 @@ export interface configItemType {
   style: {
     [propName: string]: any
   },
+  animates: animationItemTs[],
   id?:string, // 会在组件拖拽到工作区,为这个组件生成一个唯一id
   props?:objType[]
   [propName: string]: any
@@ -79,7 +81,8 @@ export const getCofig = (components:any):configItemType[] => {
       },
       style: {
         ...(s.style?s.style : {})
-      }
+      },
+      animates: []
     })
   }
   

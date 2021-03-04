@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, getCurrentInstance, isProxy, toRaw } from 'vue'
+import { defineComponent, getCurrentInstance, toRaw } from 'vue'
 import {useStore} from 'vuex'
 import tzLeft from '../../components/left/index.vue'
 import tzRight from '../../components/right/index.vue'
@@ -21,7 +21,7 @@ export default defineComponent({
     tzContent,
     tzRight
   },
-  setup(props, content) {
+  setup() {
     const store = useStore()
     // 获取所有全局注册的组件
     const internalInstance = getCurrentInstance()
@@ -39,7 +39,8 @@ export default defineComponent({
         showClose: false,
         customClass: 'iframeBox',
         closeOnClickModal: true,
-        dangerouslyUseHTMLString: true
+        dangerouslyUseHTMLString: true,
+        callback() {}
       })
       const iframe = document.querySelector('.iframe') as HTMLIFrameElement
       iframe.onload = () => {

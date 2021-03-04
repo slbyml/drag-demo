@@ -1,6 +1,7 @@
 import { createStore } from 'vuex'
 import {configItemType} from '../config'
-
+import {animationItemTs} from '../config/animate'
+import { generateID } from '../utils'
 export interface state {
   canvasConfig:any,
   components: configItemType[],
@@ -33,6 +34,7 @@ const store = createStore({
     },
     addComponents (state:state, data) {
       state.components.push(data)
+      store.commit('addCurrentComponent', state.components[state.components.length - 1])
     },
     // 更新组件的样式
     updateStyle(state:state, {index, style}) {
@@ -43,7 +45,7 @@ const store = createStore({
       }      
     },
     // 更新当前选中组件的样式
-    updateCurrentStyle(state:state, style) {      
+    updateCurrentStyle(state:state, style) {            
       if (!state.currentComponent) return;
       const defaultStyle = state.currentComponent.style
       state.currentComponent.style = {
@@ -51,9 +53,21 @@ const store = createStore({
         ...style
       }
     },
+    // 为当前组件添加动画
+    addCurrentAnimation(state:state, animation:animationItemTs) {
+      state.currentComponent?.animates.push({
+        ...animation,
+        id:generateID()
+      })
+    },
+    // 移除当前组件的指定动画
+    delCurrentAnimation(state:state, index:number) {
+      state.currentComponent?.animates.splice(index, 1)
+    },
     // 删除当前组件
     deleteCurrentComponent(state: state) {
       if (!state.currentComponent || state.components.length <= 0) return
+      
       for (let index = 0; index < state.components.length; index++) {
         const item = state.components[index];
         if (item === state.currentComponent) {

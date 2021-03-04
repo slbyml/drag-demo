@@ -1,5 +1,5 @@
 <template>
-  <div class="item" :style="componentsConfig.style" ref="component" @click="activeComponent">
+  <div class="item" :class="{activeComponent: isActive}" :style="componentsConfig.style" ref="component" @click="activeComponent">
     <slot></slot>
   </div>
 </template>
@@ -23,9 +23,11 @@ export default defineComponent({
       default: 0
     } as Prop<number>
   },
+  emits: ['onComponent'],
   setup (props, context) {
     const component = ref(null)
     const store = useStore()
+    const currentComponent = computed(() => store.getters.getCurrentComponent)
     onMounted(() => {   
       const dom:any = component.value;
       const style:any = (dom as HTMLElement).getBoundingClientRect()
@@ -46,9 +48,15 @@ export default defineComponent({
       e.stopPropagation()
     }
 
+    const isActive = computed(() => {      
+      return currentComponent.value && currentComponent.value.id === props.componentsConfig.id
+    })
+
     return {
       component,
-      activeComponent
+      currentComponent,
+      activeComponent,
+      isActive
     }
   }
 })
