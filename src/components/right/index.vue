@@ -7,6 +7,9 @@
       <el-tab-pane label="动画" name="dh" v-if="currentComponent">
         <right-animate />
       </el-tab-pane>
+      <el-tab-pane label="事件" name="事件" v-if="currentComponent">
+        <right-event />
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
@@ -16,12 +19,15 @@ import { defineComponent, computed, ref } from 'vue'
 import {useStore} from 'vuex'
 import rightStyle from './style.vue'
 import rightAnimate from './animate.vue'
+import rightEvent from './event.vue'
+
 
 export default defineComponent({
   name: 'tzRight',
   components: {
     rightStyle,
-    rightAnimate
+    rightAnimate,
+    rightEvent
   },
   setup () {
     const activePane = ref('sx')

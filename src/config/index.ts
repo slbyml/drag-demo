@@ -11,6 +11,7 @@ export interface configItemType {
     [propName: string]: any
   },
   animates: animationItemTs[],
+  events?:objType,
   id?:string, // 会在组件拖拽到工作区,为这个组件生成一个唯一id
   props?:objType[]
   [propName: string]: any

@@ -19,8 +19,8 @@ export default defineComponent({
 
 <style scoped>
 .btn{
-  width: 100px;
-  height: 30px;
+  width: 100%;
+  height: 100%;
   line-height: 30px;
   border: none;
   background-color: bisque;

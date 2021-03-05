@@ -76,10 +76,21 @@ const store = createStore({
           return void(0)
         }
       }
-
     },
     addCurrentComponent(state:state, data) {
       state.currentComponent = data
+    },
+    // 为当前组件添加事件
+    addCurrentEvent(state, data) {
+      if (!state.currentComponent) return;
+      if(!state.currentComponent.events) {
+        state.currentComponent.events = []
+      }
+      state.currentComponent.events.push(data)
+    },
+    // 删除当前组件对应的事件
+    delCurrentEvent(state:state, index:number){
+      state.currentComponent?.events?.splice(index, 1)
     }
   },
   getters: {
