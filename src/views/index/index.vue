@@ -27,14 +27,14 @@ export default defineComponent({
     const internalInstance = getCurrentInstance()
     const config = getCofig(internalInstance && internalInstance.appContext.components)
     const canvasConfig = store.getters.getCanvas
-
     const open = () => {
       const style = {
         width: canvasConfig.style.width,
         height: canvasConfig.style.height
       }
       const components = store.getters.getComponents
-      internalInstance?.appContext.config.globalProperties.$alert(`<div class='box' style="width:${style.width};height:${style.height}"><iframe src='/#/iframe' class="iframe" ></iframe></div>`, {
+      const url = import.meta.env.PROD ? '/drag-demo/dist/index.html/#/iframe' : '/#/iframe'
+      internalInstance?.appContext.config.globalProperties.$alert(`<div class='box' style="width:${style.width};height:${style.height}"><iframe src='${url}' class="iframe" ></iframe></div>`, {
         showConfirmButton: false,
         showClose: false,
         customClass: 'iframeBox',
