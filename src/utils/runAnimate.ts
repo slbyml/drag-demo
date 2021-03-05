@@ -1,5 +1,16 @@
 import {configItemType} from '../config/index'
 import {animationItemTs} from '../config/animate'
+function getComputedCSSText (style) {
+  let cssText = ''
+  for (let attr in style) {
+    // m <?> matched
+    // #!en: hump to line
+    // #!zh: 驼峰转下划线
+    cssText += `${attr.replace(/[A-Z]+/g, m => `-${m.toLowerCase()}`)}:${style[attr]};`
+  }
+  return cssText
+}
+
 
 // 为组件添加动画
 export default async function runAnimation(current:configItemType, store: any, el:HTMLDivElement|null) {  
@@ -15,13 +26,12 @@ export default async function runAnimation(current:configItemType, store: any, e
     }
     preClass = `animate__${animate.value}`
     el?.classList.add(preClass, 'animate__animated')
-    store.commit('updateCurrentStyle', {
-      ...animationStyle
-    })
+    el.style.cssText = getComputedCSSText(animationStyle) + getComputedCSSText(current.style)
 
     const removeAnimation = () => {
       el?.removeEventListener('animationend', removeAnimation)
       el?.removeEventListener('animationcancel', removeAnimation)
+      el.style.cssText = getComputedCSSText(current.style)
       // el?.classList.remove(`animate__${animate.value}`, 'animate__animated')
       resolve('end')
     }
