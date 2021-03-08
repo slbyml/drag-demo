@@ -1,6 +1,6 @@
 import { computed } from 'vue'
 import {useStore} from 'vuex'
-import {configItemType} from '../../config'
+import {configItemType} from '../../types'
 
 export enum selectTs {
   lt = 'lt',

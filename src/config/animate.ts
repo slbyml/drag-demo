@@ -1,25 +1,4 @@
-export interface base {
-  label: string,
-  value: string
-}
-export interface animationItemTs extends base {
-  delay: number, // 延迟时间
-  mode: string, // 动画开始和结束样式
-  infinite: boolean,  // 是否是无限动画
-  [propName: string]: any
-}
-
-export interface animationBoxTs {
-  label: string,
-  value: animationItemTs[]
-
-}
-
-export interface animationTabsTs {
-  in: animationBoxTs,
-  out: animationBoxTs,
-  other: animationBoxTs
-}
+import { animationBaseTs, animationTabsTs } from '../types'
 
 export const animationTabs:animationTabsTs = {
   in: {
@@ -442,7 +421,7 @@ const defaultOption = {
   infinite: false
 }
 for (let index = 0; index < opt.length; index++) {
-  const items:base[] = opt[index].children
+  const items:animationBaseTs[] = opt[index].children
   items.forEach(item => {
     if (inReg.test(item.label)) {
       animationTabs.in.value.push({

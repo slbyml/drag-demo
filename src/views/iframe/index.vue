@@ -12,7 +12,7 @@ import {useStore} from 'vuex'
 import { Dialog } from 'vant'
 import componentBox from '../../components/component-box/index.vue'
 import runAnimation from '../../utils/runAnimate'
-import {configItemType} from '../../config/index'
+import {configItemType} from '../../types'
 
 export default defineComponent({
   components: {

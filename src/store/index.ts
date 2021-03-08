@@ -1,9 +1,16 @@
 import { createStore } from 'vuex'
-import {configItemType} from '../config'
-import {animationItemTs} from '../config/animate'
+import {configItemType, animationItemTs} from '../types'
 import { generateID } from '../utils'
 export interface state {
-  canvasConfig:any,
+  canvasConfig:{
+    style: {
+      width: string,
+      height: string,
+      backgroundColor: string,
+      [propName: string]: any
+    },
+    props: any
+  },
   components: configItemType[],
   currentComponent:configItemType | null,
   [propName: string]: any

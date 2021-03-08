@@ -1,21 +1,18 @@
-import {animationItemTs} from './animate'
-// 一个简单的对象类型
-export interface objType {
-  [propName: string]: any
-}
+import { objType, configItemType } from '../types'
+
 // 配置文件的基本类型
-export interface configItemType {
-  title: string,
-  component: string,
-  style: {
-    [propName: string]: any
-  },
-  animates: animationItemTs[],
-  events?:objType,
-  id?:string, // 会在组件拖拽到工作区,为这个组件生成一个唯一id
-  props?:objType[]
-  [propName: string]: any
-}
+// export interface configItemType {
+//   title: string,
+//   component: string,
+//   style: {
+//     [propName: string]: any
+//   },
+//   animates: animationItemTs[],
+//   events?:objType,
+//   id?:string, // 会在组件拖拽到工作区,为这个组件生成一个唯一id
+//   props?:objType[]
+//   [propName: string]: any
+// }
 
 // 列举用到的组件
 const componentsMap:objType = {

@@ -1,5 +1,5 @@
 import { computed } from 'vue'
-import {configItemType} from '../../config'
+import {configItemType} from '../../types'
 
 export interface positionTs {
   x: number,

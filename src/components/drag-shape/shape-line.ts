@@ -1,5 +1,5 @@
 import { computed } from 'vue'
-import {configItemType} from '../../config'
+import {configItemType} from '../../types'
 const gap = 3
 export interface allPositionTs {
   left:number[],

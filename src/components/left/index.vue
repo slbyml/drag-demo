@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { defineComponent, Prop } from 'vue'
-import {configItemType} from '../../config'
+import {configItemType} from '../../types'
 
 export default defineComponent({
   name: 'tz-left',

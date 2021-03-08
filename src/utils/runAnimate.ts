@@ -1,6 +1,5 @@
-import {configItemType} from '../config/index'
-import {animationItemTs} from '../config/animate'
-function getComputedCSSText (style) {
+import {configItemType, animationItemTs, objType} from '../types'
+function getComputedCSSText (style:objType) {
   let cssText = ''
   for (let attr in style) {
     // m <?> matched
