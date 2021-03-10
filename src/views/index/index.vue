@@ -34,7 +34,7 @@ export default defineComponent({
       }
       const components = store.getters.getComponents
       const url = import.meta.env.PROD ? '/drag-demo/dist/index.html#/iframe' : '/#/iframe'
-      internalInstance?.appContext.config.globalProperties.$alert(`<div class='box' style="width:${style.width};height:${style.height}"><iframe src='${url}' class="iframe" ></iframe></div>`, {
+      internalInstance?.appContext.config.globalProperties.$alert(`<div class='box' style="width:${style.width};height:${style.height}"><iframe src='${url}' class="iframe" ></iframe></div>`, '如果页面没有效果,请关闭弹窗,重新点击预览', {
         showConfirmButton: false,
         showClose: false,
         customClass: 'iframeBox',
