@@ -19,8 +19,8 @@ export default defineComponent({
   name: 'dragShape',
   setup () {
     const store = useStore()
-    const xline = ref(null)
-    const yline = ref(null)
+    const xline = ref<HTMLDivElement | null>(null)
+    const yline = ref<HTMLDivElement | null>(null)
 
     const currentComponentConfig:any = computed(() => store.getters.getCurrentComponent)
 

@@ -25,7 +25,7 @@ export default defineComponent({
   },
   emits: ['onComponent'],
   setup (props, context) {
-    const component = ref(null)
+    const component = ref<HTMLDivElement | null>(null)
     const store = useStore()
     const currentComponent = computed(() => store.getters.getCurrentComponent)
     onMounted(() => {   
